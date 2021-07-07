@@ -15,6 +15,8 @@ phases:
       python: 3.8
     commands:
       - ./${BASE_PATH}/install.sh
+      - pwd
+      - docker run -v $(pwd):/workspace ppiper/jenkinsfile-runner
   pre_build:
     commands:
       - export LC_ALL="en_US.utf8"
