@@ -16,7 +16,7 @@ phases:
     commands:
       - ./${BASE_PATH}/install.sh
       - pwd
-      - docker run -v $(pwd)/${BASE_PATH}:/workspace ppiper/jenkinsfile-runner
+      - docker run --rm -v $(pwd)/${BASE_PATH}/Jenkinsfile:/workspace/Jenkinsfile jenkins/jenkinsfile-runner
   pre_build:
     commands:
       - export LC_ALL="en_US.utf8"
