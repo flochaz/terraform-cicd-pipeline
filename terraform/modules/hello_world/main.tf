@@ -5,6 +5,16 @@ terraform {
   required_version = ">= 0.12.26"
 }
 
+resource "aws_s3_bucket" "b" {
+  bucket = "my-tf-test-bucket"
+  acl    = "private"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
+}
+
 output "hello_world" {
   value = "Hello, World!"
 }
