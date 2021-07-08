@@ -5,7 +5,7 @@ env:
     ENVIRONMENT: int
     TF_IN_AUTOMATION: 1
     TERRAFORM_VERSION: 0.13.4
-    BASE_PATH: terraform/modules
+    BASE_PATH: $CODEBUILD_SRC_DIR_source_output/terraform/modules
     #TEST_ACCOUNT_ASSUMED_ROLE: "" In case of cross deployment this is the role in the target account.
 
 phases:
@@ -24,7 +24,8 @@ phases:
       - source ${BASE_PATH}/prebuild.sh
   build:
     commands:
-      - ./${BASE_PATH}/../examples/hello_world/run_terraform.sh apply
+      - cd ./${BASE_PATH}/../examples/hello_world
+      - terraform apply $CODEBUILD_SRC_DIR_plan/plan.out
   post_build:
     commands:
       - echo Plan Performed completed on `date`
