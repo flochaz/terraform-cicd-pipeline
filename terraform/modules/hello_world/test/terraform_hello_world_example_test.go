@@ -10,7 +10,7 @@ import (
 func TestTerraformHelloWorldExample(t *testing.T) {
 	// retryable errors in terraform testing.
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/terraform-hello-world-example",
+		TerraformDir: "../examples/hello_world",
 	})
 
 	defer terraform.Destroy(t, terraformOptions)
