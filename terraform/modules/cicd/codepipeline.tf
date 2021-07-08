@@ -34,7 +34,7 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
-    name = "Build"
+    name = "Test"
 
     action {
       name             = "Build-${aws_codebuild_project.codebuild_deployment["build"].name}"
@@ -44,10 +44,61 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
       run_order        = 1
       input_artifacts  = ["source_output"]
-      output_artifacts = ["build_output"]
 
       configuration = {
-        ProjectName = aws_codebuild_project.codebuild_deployment["build"].name
+        ProjectName = aws_codebuild_project.codebuild_deployment["test"].name
+        EnvironmentVariables = jsonencode([{
+          name  = "ENVIRONMENT"
+          value = each.value
+          },
+          {
+            name  = "PROJECT_NAME"
+            value = var.account_type
+        }])
+      }
+    }
+  }
+
+  stage {
+    name = "Plan"
+
+    action {
+      name             = "Build-${aws_codebuild_project.codebuild_deployment["build"].name}"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      run_order        = 1
+      input_artifacts  = ["source_output"]
+
+      configuration = {
+        ProjectName = aws_codebuild_project.codebuild_deployment["plan"].name
+        EnvironmentVariables = jsonencode([{
+          name  = "ENVIRONMENT"
+          value = each.value
+          },
+          {
+            name  = "PROJECT_NAME"
+            value = var.account_type
+        }])
+      }
+    }
+  }
+
+  stage {
+    name = "Apply"
+
+    action {
+      name             = "Build-${aws_codebuild_project.codebuild_deployment["apply"].name}"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      run_order        = 1
+      input_artifacts  = ["source_output"]
+
+      configuration = {
+        ProjectName = aws_codebuild_project.codebuild_deployment["apply"].name
         EnvironmentVariables = jsonencode([{
           name  = "ENVIRONMENT"
           value = each.value

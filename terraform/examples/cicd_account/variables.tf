@@ -26,6 +26,8 @@ variable "git_repository_name" {
 variable "code_pipeline_build_stages" {
   description = "maps of build type stages configured in CodePipeline"
   default = {
-    "build" = "terraform/modules/buildspec.yaml"
+    "test" = "terraform/modules/buildspec-test.yaml",
+    "plan" = "terraform/modules/buildspec-plan.yaml",
+    "apply" = "terraform/modules/buildspec-apply.yaml"
   }
 }
