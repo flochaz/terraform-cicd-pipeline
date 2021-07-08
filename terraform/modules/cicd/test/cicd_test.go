@@ -49,5 +49,5 @@ func TestBitBucketIntegration(t *testing.T) {
 	// // Run `terraform output` to get the values of output variables and check they have the expected values.
 	
 	assert.Equal(t, "[mocked-dev]", outputCodePipelineName)
-	assert.Equal(t, "[mocked-build]", outputCodeBuildProjectName)
+	assert.Equal(t, "[mocked-apply mocked-plan mocked-test]", outputCodeBuildProjectName)
 }
