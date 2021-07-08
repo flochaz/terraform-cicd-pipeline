@@ -37,13 +37,13 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Test"
 
     action {
-      name             = "Build-${aws_codebuild_project.codebuild_deployment["build"].name}"
-      category         = "Build"
-      owner            = "AWS"
-      provider         = "CodeBuild"
-      version          = "1"
-      run_order        = 1
-      input_artifacts  = ["source_output"]
+      name            = "Build-${aws_codebuild_project.codebuild_deployment["test"].name}"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      run_order       = 1
+      input_artifacts = ["source_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_deployment["test"].name
@@ -63,13 +63,13 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Plan"
 
     action {
-      name             = "Build-${aws_codebuild_project.codebuild_deployment["build"].name}"
-      category         = "Build"
-      owner            = "AWS"
-      provider         = "CodeBuild"
-      version          = "1"
-      run_order        = 1
-      input_artifacts  = ["source_output"]
+      name            = "Build-${aws_codebuild_project.codebuild_deployment["plan"].name}"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      run_order       = 1
+      input_artifacts = ["source_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_deployment["plan"].name
@@ -83,19 +83,26 @@ resource "aws_codepipeline" "codepipeline" {
         }])
       }
     }
+    action {
+      name     = "Approval"
+      category = "Approval"
+      owner    = "AWS"
+      provider = "Manual"
+      version  = "1"
+    }
   }
 
   stage {
     name = "Apply"
 
     action {
-      name             = "Build-${aws_codebuild_project.codebuild_deployment["apply"].name}"
-      category         = "Build"
-      owner            = "AWS"
-      provider         = "CodeBuild"
-      version          = "1"
-      run_order        = 1
-      input_artifacts  = ["source_output"]
+      name            = "Build-${aws_codebuild_project.codebuild_deployment["apply"].name}"
+      category        = "Build"
+      owner           = "AWS"
+      provider        = "CodeBuild"
+      version         = "1"
+      run_order       = 1
+      input_artifacts = ["source_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_deployment["apply"].name

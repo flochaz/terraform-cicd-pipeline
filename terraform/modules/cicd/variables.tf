@@ -55,8 +55,10 @@ variable "branches" {
 variable "code_pipeline_build_stages" {
   description = "maps of build type stages configured in CodePipeline"
   default = {
-    "build" = "./build/buildspec.yaml"
-  }
+    "test" = "terraform/modules/buildspec-test.yaml",
+    "plan" = "terraform/modules/buildspec-plan.yaml",
+    "apply" = "terraform/modules/buildspec-apply.yaml"
+      }
 }
 
 variable "codebuild_node_size" {
