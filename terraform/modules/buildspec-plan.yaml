@@ -24,7 +24,8 @@ phases:
       - source ${BASE_PATH}/prebuild.sh
   build:
     commands:
-      - ./${BASE_PATH}/../examples/hello_world/run_terraform.sh plan
+      - cd ./${BASE_PATH}/../examples/hello_world
+      - ./run_terraform.sh plan
   post_build:
     commands:
       - echo Plan Performed completed on `date`
