@@ -44,6 +44,7 @@ resource "aws_codepipeline" "codepipeline" {
       version         = "1"
       run_order       = 1
       input_artifacts = ["source_output"]
+      output_artifacts = ["build_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_deployment["test"].name
@@ -70,6 +71,7 @@ resource "aws_codepipeline" "codepipeline" {
       version         = "1"
       run_order       = 1
       input_artifacts = ["source_output"]
+      output_artifacts = ["plan_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_deployment["plan"].name
@@ -102,7 +104,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider        = "CodeBuild"
       version         = "1"
       run_order       = 1
-      input_artifacts = ["source_output"]
+      input_artifacts = ["plan_output"]
 
       configuration = {
         ProjectName = aws_codebuild_project.codebuild_deployment["apply"].name
