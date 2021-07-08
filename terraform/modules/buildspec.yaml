@@ -16,7 +16,7 @@ phases:
     commands:
       - ./${BASE_PATH}/install.sh
       - pwd
-      - docker run --rm -v $(pwd)/${BASE_PATH}/Jenkinsfile:/workspace/Jenkinsfile jenkins/jenkinsfile-runner
+      # - docker run --rm -v $(pwd)/${BASE_PATH}/Jenkinsfile:/workspace/Jenkinsfile jenkins/jenkinsfile-runner
   pre_build:
     commands:
       - export LC_ALL="en_US.utf8"
@@ -36,10 +36,16 @@ reports:
       - "**/*.log"
     base-directory: "terraform/modules/cicd/test/reports"
     discard-paths: no
+  hello_world-reports:
+    files:
+      - "**/*.xml"
+      - "**/*.log"
+    base-directory: "terraform/modules/hello_world/test/reports"
+    discard-paths: no
 artifacts:
   files:
     - "**/*.log"
     - "**/*.xml"
   name: reports
   discard-paths: no
-  base-directory: "terraform/modules/cicd/test/reports"
+  base-directory: "terraform/modules/"
