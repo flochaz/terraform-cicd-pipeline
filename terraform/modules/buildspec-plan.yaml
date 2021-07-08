@@ -29,9 +29,9 @@ phases:
   post_build:
     commands:
       - echo Plan Performed completed on `date`
-  artifacts:
-    files:
-      - "plan.out"
-    name: plan
-    discard-paths: no
-    base-directory: "./${BASE_PATH}/../examples/hello_world"
+artifacts:
+  files:
+    - "plan.out"
+  name: plan
+  discard-paths: no
+  base-directory: "./${BASE_PATH}/../examples/hello_world"
