@@ -25,11 +25,11 @@ elif [[ ${ACTION} == "destroy" ]]; then
     terraform output | grep -i S3_bucket
     read -p "Confirm that you have empty the S3 bucket"
     echo "[INFO] destroy all"
-    terraform destroy -var-file ${TFVARS_FILE}
+    terraform destroy
     exit 0
 elif [[ ${ACTION} == "plan" ]]; then
-    echo "terraform plan -var-file ${TFVARS_FILE} -out plan.out"
-    terraform plan -var-file ${TFVARS_FILE} -out plan.out
+    echo "terraform plan  -out plan.out"
+    terraform plan  -out plan.out
     retcode=$?
     if [[  $retcode != 0 ]]; then 
         exit $retcode
