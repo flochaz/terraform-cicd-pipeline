@@ -31,7 +31,4 @@ phases:
       - echo Plan Performed completed on `date`
 artifacts:
   files:
-    - "plan.out"
-  name: plan
-  discard-paths: no
-  base-directory: "./${BASE_PATH}/../examples/hello_world"
+    - '**/*'
