@@ -1,4 +1,6 @@
-## ci-4-terraform-aws-developer-tools-terratest
+## cicd-4-terraform-aws-developer-tools
+
+*Based on [ci-4-terraform-aws-developer-tools-terratest](https://github.com/aws-samples/ci-4-terraform-aws-developer-tools-terratest)*
 
 # Table of Contents
 - [Table of Contents](#table-of-contents)
@@ -37,6 +39,7 @@ In order to provide high quality and reliable modules each of these modules shou
 Due to the nature of the Infrastructure as Code automated tests on the described resources have been always complicated often forcing the developers to perform manual tests on their solutions after the deployment.
 
 The module presented in this repository contains code to deploy Continuous Integration (CI) solution based on CodePipeline, CodeBuild and [Terratest](https://terratest.gruntwork.io/) library, offering the ability to run E2E tests on Terraform modules in an automated way.
+And the following stage to plan and deploy them.
 
 ## Target Audience
 
@@ -60,7 +63,7 @@ Automated E2E tests becomes then necessary to ensure the delivery of new feature
 The following architecture diagram simplifies the proposed solution. Note that an independent account is used to run the mentioned E2E
 tests based on the provided Terraform modules.
 
-![pic1](./.docs/CI4Terraform.png)
+![pic1](./.docs/CICD4Terraform.png)
 
 
 # Repository Structure
