@@ -1,0 +1,39 @@
+version: 0.2
+
+env:
+  variables:
+    ENVIRONMENT: int
+    TF_IN_AUTOMATION: 1
+    TERRAFORM_VERSION: 0.13.4
+    BASE_PATH: terraform/modules
+    #TEST_ACCOUNT_ASSUMED_ROLE: "" In case of cross deployment this is the role in the target account.
+
+phases:
+  install:
+    runtime-versions:
+      golang: 1.14
+      python: 3.8
+    commands:
+      - ./${BASE_PATH}/install.sh
+      - pwd
+  pre_build:
+    commands:
+      - export LC_ALL="en_US.utf8"
+      - echo Starting pre-build...
+      - ls -ls
+      - source ${BASE_PATH}/prebuild.sh
+  build:
+    commands:
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo $COMMIT_ID
+      - echo $ACCOUNT_ID
+      - echo $MODULE_NAME
+      - cd ./${BASE_PATH}/../examples/${MODULE_NAME}
+      - ./run_terraform.sh plan
+      - ./run_terraform.sh apply
+  post_build:
+    commands:
+      - echo Plan Performed completed on `date`
+artifacts:
+  files:
+    - '**/*'
