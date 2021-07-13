@@ -61,7 +61,7 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
-    name = "Plan"
+    name = "Terraform-Plan"
 
     action {
       name            = "Build-${aws_codebuild_project.codebuild_deployment["plan"].name}"
@@ -95,7 +95,7 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
-    name = "Apply"
+    name = "Terraform-Apply"
     action {
       name            = "Build-${aws_codebuild_project.codebuild_deployment["apply"].name}"
       category        = "Build"
