@@ -34,7 +34,7 @@ resource "aws_codepipeline" "codepipeline" {
   }
 
   stage {
-    name = "Test"
+    name = "TerraTest"
 
     action {
       name            = "Build-${aws_codebuild_project.codebuild_deployment["test"].name}"
@@ -60,21 +60,20 @@ resource "aws_codepipeline" "codepipeline" {
     }
   }
 
-  stage {
-    name = "Terraform-Plan"
-
+stage {
+    name = "DetectChanges"
     action {
-      name            = "Build-${aws_codebuild_project.codebuild_deployment["plan"].name}"
+      name            = "Build-${aws_codebuild_project.codebuild_deployment["detect"].name}"
       category        = "Build"
       owner           = "AWS"
       provider        = "CodeBuild"
       version         = "1"
       run_order       = 1
       input_artifacts = ["source_output"]
-      output_artifacts = ["plan_output"]
+      output_artifacts = ["sfn_input"]
 
       configuration = {
-        ProjectName = aws_codebuild_project.codebuild_deployment["plan"].name
+        ProjectName = aws_codebuild_project.codebuild_deployment["detect"].name
         EnvironmentVariables = jsonencode([{
           name  = "ENVIRONMENT"
           value = each.value
@@ -84,39 +83,28 @@ resource "aws_codepipeline" "codepipeline" {
             value = var.account_type
         }])
       }
-    }
-    action {
-      name     = "Approval"
-      category = "Approval"
-      owner    = "AWS"
-      provider = "Manual"
-      version  = "1"
     }
   }
 
   stage {
-    name = "Terraform-Apply"
+    name = "TerraformMultiAccountDeploy"
+
     action {
-      name            = "Build-${aws_codebuild_project.codebuild_deployment["apply"].name}"
-      category        = "Build"
+      name            = "${aws_sfn_state_machine.module_plan_apply.name}"
+      category        = "Invoke"
       owner           = "AWS"
-      provider        = "CodeBuild"
+      provider        = "StepFunctions"
       version         = "1"
       run_order       = 1
-      input_artifacts = ["plan_output"]
+      input_artifacts = ["sfn_input"]
 
       configuration = {
-        ProjectName = aws_codebuild_project.codebuild_deployment["apply"].name
-        EnvironmentVariables = jsonencode([{
-          name  = "ENVIRONMENT"
-          value = each.value
-          },
-          {
-            name  = "PROJECT_NAME"
-            value = var.account_type
-        }])
+        StateMachineArn = "${aws_sfn_state_machine.module_plan_apply.arn}"
+        InputType = "FilePath"
+        Input = "./sfn_input.json"
       }
     }
   }
+
   tags = var.custom_tags
 }

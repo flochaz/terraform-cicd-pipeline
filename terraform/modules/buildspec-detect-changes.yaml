@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    ENVIRONMENT: int
+    TF_IN_AUTOMATION: 1
+    TERRAFORM_VERSION: 0.13.4
+    BASE_PATH: terraform/modules
+    #TEST_ACCOUNT_ASSUMED_ROLE: "" In case of cross deployment this is the role in the target account.
+
+
+# { "accountsmodules": [ { "AccountId": "${accountId}", "ModuleName": "${ModuleName}", "CommitId": "acc4b933370a708a42bafbd8a24654a7502b32d2" }]}
+
+
+phases:
+  build:
+    commands:
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo $COMMIT_ID
+      - echo $ACCOUNT_ID
+      - echo $MODULE_NAME
+      - echo "{ \"accountsmodules\": [ { \"AccountId\": \"${CODEBUILD_WEBHOOK_ACTOR_ACCOUNT_ID}\", \"ModuleName\": \"hello_world\", \"CommitId\": \"${CODEBUILD_RESOLVED_SOURCE_VERSION}\" }]}" > sfn_input.json
+  post_build:
+    commands:
+      - echo change detection Performed completed on `date`
+artifacts:
+  files:
+    - 'sfn_input.json'

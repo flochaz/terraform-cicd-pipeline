@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+
+
 # Run terratest
 echo "Running Terratest"
 go get "github.com/gruntwork-io/terratest/modules/terraform" \
