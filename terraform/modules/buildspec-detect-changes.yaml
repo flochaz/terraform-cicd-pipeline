@@ -26,4 +26,4 @@ phases:
       - echo change detection Performed completed on `date`
 artifacts:
   files:
-    - 'terraform/modules/sfn_input.json'
+    - 'sfn_input.json'
