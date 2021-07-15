@@ -57,7 +57,8 @@ variable "code_pipeline_build_stages" {
   default = {
     "test" = "terraform/modules/buildspec-test.yaml",
     "plan" = "terraform/modules/buildspec-plan.yaml",
-    "apply" = "terraform/modules/buildspec-apply.yaml"
+    "apply" = "terraform/modules/buildspec-apply.yaml",
+    "detect" = "terraform/modules/buildspec-detect-changes.yaml"
       }
 }
 
