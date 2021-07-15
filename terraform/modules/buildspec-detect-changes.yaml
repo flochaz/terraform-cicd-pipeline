@@ -19,7 +19,7 @@ phases:
       - echo $COMMIT_ID
       - echo $ACCOUNT_ID
       - echo $MODULE_NAME
-      - echo "\{ \"accountsmodules\": \[ \{ \"AccountId\": \"${CODEBUILD_WEBHOOK_ACTOR_ACCOUNT_ID}\", \"ModuleName\": \"hello_world\", \"CommitId\": \"${CODEBUILD_RESOLVED_SOURCE_VERSION}\" \}\]\}" > sfn_input.json
+      - echo {"\"accountsmodules\"":[{"\"AccountId\"":"\"${CODEBUILD_WEBHOOK_ACTOR_ACCOUNT_ID}\"","\"ModuleName\"":"\"hello_world\"","\"CommitId\"":"\"${CODEBUILD_RESOLVED_SOURCE_VERSION}\""}]} > sfn_input.json
       - cat sfn_input.json
   post_build:
     commands:
