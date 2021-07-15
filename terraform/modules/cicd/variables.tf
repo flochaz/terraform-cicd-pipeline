@@ -49,7 +49,7 @@ variable "roles" {
 variable "branches" {
   description = "Branches to be built"
   type        = list(string)
-  default     = ["dev"]
+  default     = ["sfnVersion"]
 }
 
 variable "code_pipeline_build_stages" {
