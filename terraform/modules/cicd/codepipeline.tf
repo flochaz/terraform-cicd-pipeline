@@ -33,32 +33,32 @@ resource "aws_codepipeline" "codepipeline" {
     }
   }
 
-  stage {
-    name = "TerraTest"
+  # stage {
+  #   name = "TerraTest"
 
-    action {
-      name            = "Build-${aws_codebuild_project.codebuild_deployment["test"].name}"
-      category        = "Build"
-      owner           = "AWS"
-      provider        = "CodeBuild"
-      version         = "1"
-      run_order       = 1
-      input_artifacts = ["source_output"]
-      output_artifacts = ["build_output"]
+  #   action {
+  #     name            = "Build-${aws_codebuild_project.codebuild_deployment["test"].name}"
+  #     category        = "Build"
+  #     owner           = "AWS"
+  #     provider        = "CodeBuild"
+  #     version         = "1"
+  #     run_order       = 1
+  #     input_artifacts = ["source_output"]
+  #     output_artifacts = ["build_output"]
 
-      configuration = {
-        ProjectName = aws_codebuild_project.codebuild_deployment["test"].name
-        EnvironmentVariables = jsonencode([{
-          name  = "ENVIRONMENT"
-          value = each.value
-          },
-          {
-            name  = "PROJECT_NAME"
-            value = var.account_type
-        }])
-      }
-    }
-  }
+  #     configuration = {
+  #       ProjectName = aws_codebuild_project.codebuild_deployment["test"].name
+  #       EnvironmentVariables = jsonencode([{
+  #         name  = "ENVIRONMENT"
+  #         value = each.value
+  #         },
+  #         {
+  #           name  = "PROJECT_NAME"
+  #           value = var.account_type
+  #       }])
+  #     }
+  #   }
+  # }
 
 stage {
     name = "DetectChanges"
@@ -101,7 +101,7 @@ stage {
       configuration = {
         StateMachineArn = aws_sfn_state_machine.module_plan_apply.arn
         InputType = "FilePath"
-        Input = "./sfn_input.json"
+        Input = "sfn_input.json"
       }
     }
   }
