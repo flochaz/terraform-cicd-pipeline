@@ -90,7 +90,7 @@ stage {
     name = "TerraformMultiAccountDeploy"
 
     action {
-      name            = "${aws_sfn_state_machine.module_plan_apply.name}"
+      name            = aws_sfn_state_machine.module_plan_apply.name
       category        = "Invoke"
       owner           = "AWS"
       provider        = "StepFunctions"
@@ -99,7 +99,7 @@ stage {
       input_artifacts = ["sfn_input"]
 
       configuration = {
-        StateMachineArn = "${aws_sfn_state_machine.module_plan_apply.arn}"
+        StateMachineArn = aws_sfn_state_machine.module_plan_apply.arn
         InputType = "FilePath"
         Input = "./sfn_input.json"
       }

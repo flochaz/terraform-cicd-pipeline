@@ -125,7 +125,7 @@ resource "aws_codebuild_project" "hello_world_codebuild_project" {
 
   source {
     type      = "CODECOMMIT"
-    location  = "${aws_codecommit_repository.code_repo.clone_url_http}" 
+    location  = aws_codecommit_repository.code_repo.clone_url_http
     buildspec = "terraform/modules/buildspec-plan-apply.yaml"
   }
 
