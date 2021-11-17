@@ -2,14 +2,21 @@
 set -e
 
 # Run terratest
-echo "Running Terratest"
-go get "github.com/gruntwork-io/terratest/modules/terraform" \
+echo "installing deps"
+
+for value in  "github.com/gruntwork-io/terratest/modules/terraform" \
    "github.com/stretchr/testify/assert" \
    "strings" \
    "testing" \
    "fmt" \
    "github.com/gruntwork-io/terratest/modules/random" \
    "github.com/gruntwork-io/terratest/modules/aws"
+do
+    echo "installing $value"
+    go get $value
+done
+
+echo "Running Terratest"
 
 mkdir ${BASE_PATH}/cicd/test/reports
 go test ${BASE_PATH}/cicd/test/cicd_test.go -timeout 10m -v | tee ${BASE_PATH}/cicd/test/reports/test_output.log

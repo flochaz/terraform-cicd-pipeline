@@ -36,11 +36,11 @@ reports:
       - "**/*.log"
     base-directory: "terraform/modules/cicd/test/reports"
     discard-paths: no
-  hello_world-reports:
+  petclinic_infra-reports:
     files:
       - "**/*.xml"
       - "**/*.log"
-    base-directory: "terraform/modules/hello_world/test/reports"
+    base-directory: "terraform/modules/petclinic_infra/test/reports"
     discard-paths: no
 artifacts:
   files:

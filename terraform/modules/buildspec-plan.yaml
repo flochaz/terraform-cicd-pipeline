@@ -24,7 +24,7 @@ phases:
       - source ${BASE_PATH}/prebuild.sh
   build:
     commands:
-      - cd ./${BASE_PATH}/../examples/hello_world
+      - cd ./${BASE_PATH}/../examples/petclinic_infra
       - ./run_terraform.sh plan
   post_build:
     commands:

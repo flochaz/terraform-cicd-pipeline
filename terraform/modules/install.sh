@@ -17,3 +17,7 @@ chmod +x terratest_log_parser
 mv terratest_log_parser /usr/local/bin
 terratest_log_parser --version
 cd -
+cd $HOME/.goenv && git pull --ff-only && cd -
+goenv install 1.15.14
+goenv local 1.15.14
+go version

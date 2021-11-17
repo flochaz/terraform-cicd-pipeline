@@ -2,10 +2,10 @@
 
 DELETE_ALL=${1}
 
-if ( [[ -z ${AWS_ACCESS_KEY_ID} ]] || [[ -z ${AWS_SECRET_ACCESS_KEY} ]] ) && [[ -z ${AWS_PROFILE} ]]; then
-    echo "[ERROR] Missing AWS credentials variables"
-    exit 1
-fi
+# if ( [[ -z ${AWS_ACCESS_KEY_ID} ]] || [[ -z ${AWS_SECRET_ACCESS_KEY} ]] ) && [[ -z ${AWS_PROFILE} ]]; then
+#     echo "[ERROR] Missing AWS credentials variables"
+#     exit 1
+# fi
 
 TFVARS_FILE="inventories/variables.tfvars"
 # To use the env var AWS_PROFILE

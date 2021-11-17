@@ -1,0 +1,8 @@
+aws_region="eu-west-1"
+stack="terraform-workshop-example"
+fargate-task-service-role="terraform-workshop-role-example"
+aws_ecr="petclinic-example"
+aws_profile="default"
+source_repo_name="petclinic-example"
+source_repo_branch="master"
+image_repo_name="petclinic-example"
