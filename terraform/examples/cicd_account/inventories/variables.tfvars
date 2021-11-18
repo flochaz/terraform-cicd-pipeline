@@ -1,2 +1,2 @@
-git_repository_name = "artifact-cicd-test"
+git_repository_name = "infrastructure-cicd-pipeline"
 
